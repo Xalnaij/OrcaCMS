@@ -1,0 +1,58 @@
+html,body{
+    color : white;
+}
+
+/**
+    nav
+ */
+.skin-orca .main-header .sidebar-toggle{
+    color: white;
+}
+
+.skin-orca .main-header .logo {
+    background-color: #0d6aad;
+    border-bottom: 0 solid transparent;
+}
+
+.skin-orca .main-header .navbar {
+    background-color: #0d6aad;
+}
+
+/**
+    Sitebar
+ */
+
+.skin-orca .sidebar a {
+    color: #b8c7ce;
+}
+
+.skin-orca .sidebar .treeview-menu a:hover,
+.skin-orca .sidebar .treeview-menu a:focus
+{
+    color: #b8c7ce;
+    text-decoration: underline;
+}
+
+.skin-orca .sidebar-menu>li.header {
+    color: white;
+    background: #073d64;
+}
+
+.skin-orca .wrapper, .skin-orca .main-sidebar, .skin-orca .left-side {
+    background-color: #272a31;
+}
+
+/**
+    Content Wrapper
+ */
+
+.content-wrapper {
+    background-color: #0f1117;
+}
+
+.main-footer {
+    background-color: #0f1117;
+    border-top: 1px solid #0f1117;
+}
+
+

@@ -21,29 +21,29 @@ html,body{
     padding-top: 0;
 }
 
-.nav>li
-{
-    transform: skewX(-20deg);
+
+nav li {
+    display:inline-block;
+    transition: background 0.2s;
     border-left: 2px solid white;
+    transform: skew(-20deg);  /* SKEW */
     height: 100px;
 }
-
-.nav>li>a
-{
-    color: #0f1117;
+nav li a {
+    color: white !important;
     transform: skewX(20deg);
     text-transform: uppercase;
     font-family: Montserrat, sans-serif;
     font-size: 14px;
     height: 100px;
     vertical-align: middle;
+    background-color: transparent !important;
+}
+nav li.active,
+nav li:hover{
+    background:#0d6aad;
 }
 
-.nav>li>a:hover, .nav>li>a:focus {
-    text-decoration: underline;
-    background-color: #0d6aad;
-    transform: skewX(0deg);
-}
 
 .nav>li>a>span{
     padding: 0px 15px;
