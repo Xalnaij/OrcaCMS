@@ -6,7 +6,11 @@
  * Time: 10:56
  */
 
-class Clan_model
+class Clan_model extends CI_Model
 {
 
+    public function getClanname(){
+
+
+    }
 }
