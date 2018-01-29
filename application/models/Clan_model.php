@@ -8,9 +8,8 @@
 
 class Clan_model extends CI_Model
 {
-
     public function getClanname(){
-
-
+        return $this->db->select('clanname')
+                    ->from('clan');
     }
 }
