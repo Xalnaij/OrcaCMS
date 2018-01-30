@@ -7,6 +7,7 @@ class Home extends CI_Controller {
 
 	public function index()
 	{
+	    $this->loader();
 	    $this->loadPageData();
 
 		$this->load->view(FRONTEND_VIEW_PATH.DIRECTORY_SEPARATOR.'head');
@@ -15,12 +16,16 @@ class Home extends CI_Controller {
         $this->load->view(FRONTEND_VIEW_PATH.DIRECTORY_SEPARATOR.'foot');
 	}
 
+	private function loader(){
+	    $this->load->model('clan_model','clan');
+    }
+
 	private function loadPageData(){
 
     }
 
     private function getPageTitle(){
-
+        $pageData['']
     }
 
 }

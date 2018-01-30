@@ -9,7 +9,10 @@
 class Clan_model extends CI_Model
 {
     public function getClanname(){
-        return $this->db->select('clanname')
-                    ->from('clan');
+        $query = $this->db->select('clanname')
+                    ->from($this->db->dbprefix.'clan')
+                    ->get();
+
+        return $query->result();
     }
 }
