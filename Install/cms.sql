@@ -15,22 +15,27 @@ CREATE TABLE IF NOT EXISTS players
 (
   player_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
   player_nickname VARCHAR(50) NOT NULL,
-  player_email VARCHAR(191) NOT NULL UNIQUE,
-  player_password CHAR(64) NOT NULL,
   player_avatar VARCHAR (255),
   player_birthday DATE,
   first_name VARCHAR(50),
   last_name VARCHAR(100),
   player_steam VARCHAR(255),
-  player_discord VARCHAR(255),
-  player_skype VARCHAR(255),
-  player_teampseak VARCHAR(255),
+  player_league_of_legends_username VARCHAR(255),
   player_origin VARCHAR(255),
   player_uplay VARCHAR(255),
-  player_gog VARCHAR(255),
-  player_registration_date DATETIME DEFAULT NOW(),
-  player_last_login DATETIME,
+  player_join_date DATETIME DEFAULT NOW(),
   player_active BOOLEAN DEFAULT 0 NOT NULL
+)
+ENGINE = INNODB;
+
+CREATE TABLE IF NOT EXISTS users
+(
+  user_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  user_nickname VARCHAR(50) NOT NULL,
+  user_email VARCHAR(191) NOT NULL UNIQUE,
+  user_password CHAR(64) NOT NULL,
+  user_avatar VARCHAR (255),
+  user_active BOOLEAN DEFAULT 0 NOT NULL
 )
 ENGINE = INNODB;
 
@@ -75,6 +80,11 @@ CREATE TABLE IF NOT EXISTS teams
 )
 ENGINE = INNODB;
 
+CREATE TABLE IF NOT EXISTS roles
+(
+  role_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  role_name VARCHAR(191) NOT NULL UNIQUE, 
+)
 
 CREATE TABLE IF NOT EXISTS streams
 (
@@ -163,12 +173,30 @@ CREATE TABLE IF NOT EXISTS cw_enemy
 )
 ENGINE = INNODB;
 
-CREATE TABLE IF NOT EXISTS players_2_positions
+CREATE TABLE IF NOT EXISTS player_statistics
 (
   player_id int NOT NULL,
+  cw_match_id int NOT NULL,
+  player_kills int,
+  player_assists int,
+  player_deaths int,
+  player_three_kills int,
+  player_four_kills int,
+  player_aces int,
+  player_rws decimal,
+  player_hltv decimal,
+  CONSTRAINT pk_ps_player_statistics PRIMARY KEY (player_id,cw_match_id),
+  CONSTRAINT fk_ps_user FOREIGN KEY (player_id) REFERENCES players (player_id),
+  CONSTRAINT fk_ps_cw_match FOREIGN KEY (cw_match_id) REFERENCES cw_match (cw_match_id)
+)
+ENGINE = INNODB;
+
+CREATE TABLE IF NOT EXISTS users_2_positions
+(
+  user_id int NOT NULL,
   position_id int NOT NULL,
-  CONSTRAINT pk_u2p_player_position PRIMARY KEY (player_id,position_id),
-  CONSTRAINT fk_u2p_user FOREIGN KEY (player_id) REFERENCES players (player_id),
+  CONSTRAINT pk_u2p_user_position PRIMARY KEY (player_id,position_id),
+  CONSTRAINT fk_u2p_user FOREIGN KEY (user_id) REFERENCES users (users_id),
   CONSTRAINT fp_u2p_position FOREIGN KEY (position_id) REFERENCES positions (position_id)
 )
 ENGINE = INNODB;
@@ -192,12 +220,12 @@ CREATE TABLE IF NOT EXISTS players_2_streams
 )
 ENGINE = INNODB;
 
-CREATE TABLE IF NOT EXISTS players_2_news
+CREATE TABLE IF NOT EXISTS users_2_news
 (
-  player_id int NOT NULL,
+  user_id int NOT NULL,
   news_id int NOT NULL,
-  CONSTRAINT pk_u2n_player_news PRIMARY KEY (player_id,news_id),
-  CONSTRAINT fk_u2n_user FOREIGN KEY (player_id) REFERENCES players (player_id),
+  CONSTRAINT pk_u2n_users_news PRIMARY KEY (user_id,news_id),
+  CONSTRAINT fk_u2n_user FOREIGN KEY (user_id) REFERENCES users (user_id),
   CONSTRAINT fk_u2n_news FOREIGN KEY (news_id) REFERENCES news (news_id)
 )
 ENGINE = INNODB;
@@ -292,11 +320,11 @@ CREATE TABLE IF NOT EXISTS clanwars_2_cw_enemy
 )
 ENGINE = INNODB;
 
-INSERT INTO players
+INSERT INTO users
 (
-  player_nickname,
-  player_email,
-  player_password
+  user_nickname,
+  user_email,
+  user_password
 )
 VALUES
 (
@@ -319,5 +347,5 @@ VALUES
   );
 
 INSERT INTO tags (tag_name) VALUE ('Tutorial');
-INSERT INTO players_2_news (player_id, news_id) VALUES (1,1);
+INSERT INTO users_2_news (user_id, news_id) VALUES (1,1);
 INSERT INTO news_2_tag (news_id, tag_id) VALUES (1,1);
